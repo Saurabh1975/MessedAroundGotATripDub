@@ -1,7 +1,7 @@
 // Set the dimensions of the canvas / graph
 var margin = {top: 30, right: 20, bottom: 30, left: 100},
-    width = 1800- margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    width = 1600- margin.left - margin.right,
+    height = 775 - margin.top - margin.bottom;
 
 // Parse the date / time
 var parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -70,7 +70,7 @@ var focus = svg.append("g")
 var bisectGame = d3.bisector(function(d) { return d.Game; }).left;
 
 
-    svg.append("text")
+    var text = svg.append("svg:text")
         .style("stroke",labelColor)
         .style('fill',labelColor)
         .style("stroke-width", "0.75px")
@@ -79,10 +79,17 @@ var bisectGame = d3.bisector(function(d) { return d.Game; }).left;
         .attr("dy", "1em")
         .style('font-size','48px')
         .attr('text-anchor',"right")
-        .text('RUSSELL WESTBROOK TRIPLE DOUBLE WATCH');
-
 
     var colors = new Array( "#55AA55", "#0D4D4D", assistColor );
+
+var okcOrange = '#A41B02';
+
+text.append("svg:tspan").text('RUSSELL WESTBROOK');
+text.append("svg:tspan").style('fill',okcOrange).style('stroke',okcOrange).text(' TRIPLE DOUBLE');
+text.append("svg:tspan").text(' WATCH');
+
+
+
 
 // Get the data
 d3.csv("WestbrookGameLog.csv", function(error, data) {
@@ -100,6 +107,7 @@ d3.csv("WestbrookGameLog.csv", function(error, data) {
         .attr("class", "line")
         .attr("d", TDLine(data))
         .style('stroke-width','2.5px')
+        .style('stroke','#007DC3')
         .attr("transform", "translate(0," + graphOneStart+ ")");   
 
     var totalLength = primaryPath.node().getTotalLength();
@@ -356,7 +364,7 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
 
     summarystats=summarystats[0];
 
-    var current_target = new Array("CURRENT", "TARGET");
+    var current_target = new Array("CURRENT AVERAGES", "REST OF THE SEASON TARGET");
     for(i = 0; i<2; i++){
         svg.append("text")
             .style("stroke",labelColor)
@@ -373,7 +381,7 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
     }
     var statsTag = new Array("PPG", "RPG", "APG" );
 
-    var stats = new Array(Math.round(summarystats.PPG*100)/100, 
+    var stats = new Array(Math.round(summarystats.PPG*10)/10, 
         Math.round(summarystats.RPG*10)/10, 
         Math.round(summarystats.APG*10)/10 );
 
@@ -462,8 +470,8 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
         .text("Chances of Averaging a Triple-Double");
 
     svg.append("text")
-        .style("stroke",'#801515')
-        .style("fill",'#801515')
+        .style("stroke",okcOrange)
+        .style("fill",okcOrange)
         .style("stroke-width", "0.75px")
         .style("opacity", 1)
         .attr("dx", 8)
@@ -482,8 +490,8 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
             .style('opacity',1);
     
     svg.append("text")
-        .style("stroke",'#801515')
-        .style("fill",'#801515')
+        .style("stroke",okcOrange)
+        .style("fill",okcOrange)
         .style("stroke-width", "0.75px")
         .style("opacity", 1)
         .attr("dx", 8)
@@ -546,8 +554,8 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
 
 
     svg.append("text")
-        .style("stroke",'#801515')
-        .style("fill",'#801515')
+        .style("stroke",okcOrange)
+        .style("fill",okcOrange)
         .style("stroke-width", "0.75px")
         .style("opacity", 1)
         .attr("dx", 8)
@@ -558,7 +566,7 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
         .style('font-size','72px')
         .style('font-weight','bold')
                     .style('opacity',0)
-        .text(Math.round(summarystats.Projection*100)/100)
+        .text(Math.round(summarystats.Projection))
         .transition()
         .duration(500)
             .ease('bounceIn')
@@ -566,8 +574,8 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
             .style('opacity',1);
 
     svg.append("text")
-        .style("stroke",'#801515')
-        .style("fill",'#801515')
+        .style("stroke",okcOrange)
+        .style("fill",okcOrange)
         .style("stroke-width", "0.75px")
         .style("opacity", 1)
         .attr("dx", 8)
@@ -598,12 +606,12 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
             .ease('bounceIn')
             .delay(50*(i*10+j))
             .style('opacity',1)
-        if((i*10+j+2) > Math.round(summarystats.Projection*100)/100){
+        if((i*10+j+2) > summarystats.Projection){
             break;
         }
 
         }
-        if(i+1 > Math.round(summarystats.Projection*100)/100/10)
+        if(i+1 > summarystats.Projection/10-1)
             break;
     }
 
@@ -665,6 +673,41 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
         .html("Doubles");
 
 
+    // svg.append("a")
+    //     .attr("xlink:href","www.google.com")
+    //     .append("text")
+    //     .style("stroke",'#2d2d2d')
+    //     .style("fill",'#2d2d2d')
+    //     .style("stroke-width", "0.69px")
+    //     .style("opacity", 1)
+    //     .attr("dx", 8)
+    //     .attr("dy", "1em")
+    //     .attr('text-anchor',"middle")
+    //     .attr("transform", 
+    //           "translate(" + -35  + "," + 725  + ")")
+    //     .style('font-size','8px')
+    //     .html("Created by Saurabh Rane");
+
+
+
+
+    var authorText =svg.append("svg:text")
+        .style("stroke",'#2d2d2d')
+        .style("fill",'#2d2d2d')
+        .style("stroke-width", "0.5px")
+        .style("opacity", 1)
+        .attr("dx", 8)
+        .attr("dy", "1em")
+        .attr('text-anchor',"middle")
+        .attr("transform", 
+              "translate(" + -35  + "," + 725  + ")")
+        .style('font-size','9px')
+        .text("Created by ");
+
+authorText.append("svg:tspan").append("a")
+    .attr("xlink:href","https://twitter.com/SaurabhOnTap")
+    .style('text-decoration','underline')
+    .style('fill','#3366BB').text('Saurabh Rane')
 
 var statList = new Array("Points","Rebounds","Assists")
 
