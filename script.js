@@ -11,7 +11,7 @@ var graphWidth=600;
 
 var transitionDuration = 3450;
 
-var labelColor = labelColor;
+var labelColor = '#39393a';
 
 var assistColor = '#806015'
 
@@ -24,7 +24,7 @@ var graphOneHeight = 200+graphOneStart;
 
 // Define the axes
 var xAxis = d3.svg.axis().scale(x)
-    .orient("bottom").ticks(5);
+    .orient("bottom").ticks(10);
 
 var yAxis = d3.svg.axis().scale(y)
     .orient("left").ticks(5);
@@ -151,7 +151,7 @@ d3.csv("WestbrookGameLog.csv", function(error, data) {
         });*/
 
     var timeLength = data.length
-
+//https://ih1.redbubble.net/image.195421564.4991/sticker,375x360.u2.png
     var test = svg.selectAll("dot")    
         .data(data)         
     .enter()
@@ -160,7 +160,7 @@ d3.csv("WestbrookGameLog.csv", function(error, data) {
         .attr('y',function(d) {return y(d.TDTotal)-12; })
         .attr('width', function(d){ if(d.TD>0) return(20)})
         .attr('height', 21)
-        .attr("xlink:href","https://ih1.redbubble.net/image.195421564.4991/sticker,375x360.u2.png")
+        .attr("xlink:href","westbrook head.svg")
         .attr("transform", "translate(0," + graphOneStart+ ")")
         .style('opacity',0)
         .on("mouseover", function(d) {  
@@ -356,10 +356,11 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
 
     summarystats=summarystats[0];
 
-    var current_target = new Array("Current", "Target");
+    var current_target = new Array("CURRENT", "TARGET");
     for(i = 0; i<2; i++){
         svg.append("text")
-            .style("stroke",'black')
+            .style("stroke",labelColor)
+            .style("fill",labelColor)
             .style("stroke-width", "0.75px")
             .style("opacity", 1)
             .attr("dx", 8)
@@ -375,6 +376,14 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
     var stats = new Array(Math.round(summarystats.PPG*100)/100, 
         Math.round(summarystats.RPG*10)/10, 
         Math.round(summarystats.APG*10)/10 );
+
+
+
+    svg.append("line")
+                         .attr("x1", 5)
+                         .attr("y1", 5)
+                         .attr("x2", 500)
+                         .attr("y2", 500);
 
     for(i = 1; i<4; i++){
     svg.append("text")
@@ -499,7 +508,7 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
                     .attr('y',(graphOneStart+260)+i*30)
                     .attr('width', 15)
                     .attr('height', 30)
-                    .attr("xlink:href","https://mir-s3-cdn-cf.behance.net/project_modules/disp/09014424107347.563303668ce4f.png")
+                    .attr("xlink:href","westbrookshot.svg")
                     .style('opacity',0.25)
         }
     };
@@ -513,7 +522,7 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
                     .attr('width', 15)
                     .attr('height', 30)
                     .style('opacity',0)   
-                    .attr("xlink:href","https://mir-s3-cdn-cf.behance.net/project_modules/disp/09014424107347.563303668ce4f.png")
+                    .attr("xlink:href","westbrookshot.svg")
                     .transition()
             .ease('bounceIn')
             .delay(50*(i*10+j))
@@ -579,12 +588,12 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
     for(i = 0; i<100; i++){
         for(j = 0; j<10; j++){
         svg.append("svg:image")  
-            .attr('x',graphWidth*(1.5)+j*20)
+            .attr('x',graphWidth*(1.5)+j*30)
             .style('opacity',0)
-            .attr('y',550+i*30)
-            .attr('width', 30)
-            .attr('height', 20)
-            .attr("xlink:href","http://www.wweek.com/resizer/b-HUCDEnkqwBjq7-YgAUCWWeaJg=/1200x0/filters:quality(100)/s3.amazonaws.com/wapopartners.com/wweek-wp/wp-content/uploads/2016/08/23150411/IceCube_JohnGarrison.png")
+            .attr('y',550+i*35)
+            .attr('width', 40)
+            .attr('height', 40)
+            .attr("xlink:href","westbrok3.svg")
             .transition()
             .ease('bounceIn')
             .delay(50*(i*10+j))
