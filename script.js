@@ -77,9 +77,9 @@ var bisectGame = d3.bisector(function(d) { return d.Game; }).left;
         .style("opacity", 1)
         .attr("dx", 8)
         .attr("dy", "1em")
-        .style('font-size','48px')
+        .style('font-size','60px')
         .attr('text-anchor',"right")
-        .text('RUSSELL WESTBROOK TRIPLE DOUBLE WATCH');
+        .html('RUSSELL WESTBROOK TRIPLE DOUBLE WATCH');
 
 
     var colors = new Array( "#55AA55", "#0D4D4D", assistColor );
