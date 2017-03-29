@@ -499,7 +499,7 @@ d3.csv("WestbrookSummaryStats.csv", function(error, summarystats) {
         .attr("dy", "1em")
         .attr('text-anchor',"middle")
         .attr("transform", 
-              "translate(" + graphWidth*(1.375  )  + "," + (graphOneStart+315) + ")")
+              "translate(" + graphWidth*(1.425  )  + "," + (graphOneStart+315) + ")")
         .style('font-size','15px')
         .style('font-weight','bold')
         .style('opacity',0)
